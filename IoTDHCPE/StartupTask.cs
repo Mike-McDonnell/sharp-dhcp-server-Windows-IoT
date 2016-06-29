@@ -13,15 +13,15 @@ namespace IoTDHCPE
 {
     public sealed class StartupTask : IBackgroundTask
     {
- 
+        //Based on ClusterM's Sharp-DHCP-Server
+        //Credit and thanks goes to ClusterM, and jogibear9988 
 
         public void Run(IBackgroundTaskInstance taskInstance)
         {
-
             var server = new DHCPServer(new System.Net.IPAddress(new byte[] {192, 168, 137, 1}));
             
-            server.ServerName = "fontanaWTEDHCP";
-            server.BroadcastAddress = IPAddress.Broadcast.ToString();  //"192.168.137.255";
+            server.ServerName = "sharpDHCPWifiToEthernet";
+            server.BroadcastAddress = IPAddress.Broadcast.ToString();
 
             BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
 
@@ -49,7 +49,9 @@ namespace IoTDHCPE
                         dhcpRequest.SendDHCPReply(DHCPMsgType.DHCPACK, ip, replyOptions);
                 }
                 catch
-                { }
+                {
+                    
+                }
 
             };
 
